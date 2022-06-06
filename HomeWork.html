@@ -9,10 +9,43 @@
     <script src="HomeWork.js" defer></script>
 </head>
 <body>
+    <!--===================1========================-->
     <div id="campus1"></div>
-    <div id="campus2"></div>
+    <!--===================2========================-->
+    <div id="campus2">
+        <form >
+            <fieldset>
+                <legend>Form Check</legend>
+                <div>
+                    <label class="title">姓名：
+                        <input id="input-name" type="text" name="name" required />
+                    </label><br />
+                    <label class="info">(1.不可空白 2.至少兩個字以上 3.必須全部為中文字)</label>
+                </div>
+                <div>
+                    <label class="title">密碼：
+                        <input id="input-pw" type="password" name="password" required />
+                    </label><br />
+                    <label class="info">(1.不可空白 2.至少6個字且必須包含英數字、特殊字元[!@#$%^&*])</label>
+                </div>
+                <div>
+                    <label class="title">
+                        日期：
+                        <input id="input-date" type="text" name="date" />
+                    </label><br />
+                    <label class="info">格式：西元年/月/日(yyyy/mm/dd)</label>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+    </div>
+    <!--===================3========================-->
     <div id="campus3"></div>
+    <!--===================4========================-->
     <div id="campus4"></div>
+    <!--===================5========================-->
     <div id="campus5"></div>
 
 </body>
