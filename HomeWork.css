@@ -19,30 +19,31 @@
     margin-top:20px;
 }
 h1 {
-    text-align: center
+    text-align: center;
+    padding-top:30px;
 }
 
 #navibar div {
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin-top:25%;
 }
 
-#navibar a{
-    color:white;
-    margin:20px;
-    font-size:20px;
-    border:2px solid white;
-    text-decoration:none;
-    padding:5px;
+#navibar a {
+    color: white;
+    margin: 20px;
+    font-size: 20px;
+    border: 2px solid white;
+    text-decoration: none;
+    padding: 5px;
 }
 /*=================1==================*/
 #campus1 {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content:center;
     margin: 15px;
-    margin-bottom: 600px;
+    margin-bottom: 50%;
 }
 
 .nineGrid {
@@ -54,7 +55,7 @@ h1 {
 
 /*=================2==================*/
 #campus2 {
-    margin-bottom: 600px;
+    margin-bottom: 50%;
 }
 
 #campus2 fieldset {
@@ -85,6 +86,7 @@ legend {
 #campus2 .title {
     font-size: 20px;
 }
+
 #span-pw,#span-name,#span-date{
     font-size:14px;
 }
@@ -99,6 +101,53 @@ legend {
 
 .bi-check-circle{
     color:green;
+}
+/*=================3==================*/
+#campus3 {
+    border: 3px solid #191b03;
+    width: 800px;
+    height:200px;
+    padding:15px;
+    background-color:#bccb7c;
+    margin:auto;
+    margin-bottom: 50%;
+}
+
+#picStars {
+    display: flex;
+    justify-content: center;
+}
+
+#campus3 .locating {
+    display: flex;
+    margin-top: 25px;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#campus3 img {
+    margin:0.5px;
+    cursor:pointer;
+    height:80px;
+}
+
+#campus3 ul{
+    font-size:18px;
+}
+
+.normal {
+    border: 4px solid gray;
+    border-radius: 20px;
+}
+
+.ranked {
+    border: 4px solid aqua;
+    border-radius: 50%;
+}
+
+.unranked {
+    border: 4px solid red;
+    border-radius: 0;
 }
 
 /*===================================================================*/

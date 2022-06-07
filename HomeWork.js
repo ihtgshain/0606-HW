@@ -57,18 +57,11 @@ inputPW.addEventListener("blur", () => {
     let flag1 = false; let flag2 = false; let flag3 = false; let flag4 = true;
     for (let i = 0; i < pw.length; i++) {
         let c = pw.charAt(i);
-        if (c >= "A" && c <= "Z") {
-            flag1 = true;
-        }
-        else if (c >= "0" && c <= "9") {
-            flag2 = true;
-        }
-        else if (c == "!" || c == "@" || c == "#" || c == "$" || c == "%" || c == "^" || c == "&" || c == "*") {
-            flag3 = true;
-        }
-        else {
-            flag4 = false;
-        }
+
+        if (c >= "A" && c <= "Z")   flag1 = true;
+        else if (c >= "0" && c <= "9") flag2 = true;
+        else if (c == "!" || c == "@" || c == "#" || c == "$" || c == "%" || c == "^" || c == "&" || c == "*") flag3 = true;
+        else flag4 = false;
     }
 
     if (flag1 && flag2 && flag3 && flag4) {
@@ -85,9 +78,7 @@ inputPW.addEventListener("blur", () => {
 
     errExp += temp.substr(1) + ")！";
     sp.innerHTML = `<i class="bi bi-x-circle"></i><span style="color:red">${errExp}</span>`;
-
 })
-
 
 let inputDate = document.getElementById("input-date");
 inputDate.addEventListener("blur", () => {
@@ -112,6 +103,79 @@ inputDate.addEventListener("blur", () => {
         sp.innerHTML = `<i class="bi bi-check-circle"></i><span style="color:green"> 日期有效！</span>`;
     }
 })
+//==========================3================================
+let divStars = document.getElementById("picStars");
+function generateStars() {
+    for (let i = 1; i < 6; i++) {
+        divStars.innerHTML += `<img id="s${i}" class="normal" src="images/wzs.gif" alt="lala" title="${i}星評價" 
+        onclick="oneClick(${i})" ondblclick="twoClick()" onmouseover="mouseOver(${i})" onmouseout="mouseOut()"/>`
+
+    }
+}
+generateStars();
+let isClicked = false;
+let RankCount = 0;
+let RankTotal = 0;
+
+function oneClick(i) {
+    if (isClicked) return;
+    RankCount++;
+    RankTotal += i;
+    changeToRanked(i);
+    changeRankHistory(i);
+    isClicked = true;
+}
+
+function twoClick() {
+    if (!isClicked) return;
+    changeToUnRanked();
+    isClicked = false;
+}
+
+function mouseOver(i) {
+    if (isClicked) return;
+    changeToRanked(i);
+}
+
+function mouseOut() {
+    if (isClicked) return;
+    changeToUnRanked();
+}
+
+function changeToRanked(i) {
+    for (let j = 1; j < 6; j++) {
+        let item = document.getElementById("s" + j)
+        if (j <= i) {
+            item.src = "images/dalala.gif"
+            item.classList = "";
+            item.classList.add("ranked");
+        } else {
+            item.src = "images/bulala.gif"
+            item.classList = "";
+            item.classList.add("unranked");
+        }
+    }
+}
+
+function changeToUnRanked() {
+    for (let j = 1; j < 6; j++) {
+        let item = document.getElementById("s" + j)
+        item.src = "images/wzs.gif"
+        item.classList = "";
+        item.classList.add("normal");
+    }
+}
+
+function changeRankHistory(i) {
+    let ps1 = document.getElementById("preStars1");
+    let ps2 = document.getElementById("preStars2");
+    let ps3 = document.getElementById("preStars3");
+    ps1.textContent = `您本次評價： ${i} 星。`
+    ps2.textContent = `評價次數： ${RankCount} 次。`
+    var f = Math.round(RankTotal*10 / RankCount) / 10;
+    ps3.textContent = `平均星數： ${f} 星。`
+}
+
 
 
 
