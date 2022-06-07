@@ -9,45 +9,30 @@
     <script src="HomeWork.js" defer></script>
 </head>
 <body>
-    <div id="navibar">
-        <h2>JavaScript作業</h2>
-        <h3>MSIT141 : 07_張正昱</h3>
-        <div>
-            <a href="#bookMark1">1、九九乘法表</a>
-            <a href="#bookMark2">2、輸入檢查</a>
-            <a href="#bookMark3">3、評分系統</a>
-            <a href="#bookMark4">4、廣告輪播</a>
-            <a href="#bookMark5">5、2010~2025年日曆</a>
-        </div>
-    </div>
     <!--===================1========================-->
-    <h1 id="bookMark1">1、九九乘法表</h1>
     <div id="campus1"></div>
     <!--===================2========================-->
-    <h1 id="bookMark2">2、輸入檢查</h1>
     <div id="campus2">
         <form>
             <fieldset>
                 <legend>Form Check</legend>
                 <div>
                     <label class="title">
-                        姓名：<input id="input-name" type="text" name="name" placeholder="您的姓名" required/>
+                        姓名：<input id="input-name" type="text" name="name" required />
                     </label>
-                    <span id="span-name"></span>
-                    <label class="info"><br />(1.不可空白  2.至少兩個字以上  3.必須全部為中文字)</label>
+                    <div><i class="bi bi-x-circle"></i></div>
+                    <label class="info"><br />(1.不可空白 2.至少兩個字以上 3.必須全部為中文字)</label>
                 </div>
                 <div>
                     <label class="title">
-                        密碼：<input id="input-pw" type="password" name="password" placeholder="您的密碼" required />
+                        密碼：<input id="input-pw" type="password" name="password" required />
                     </label>
-                    <span id="span-pw"></span>
-                    <label class="info"><br />(1.不可空白  2.至少6個字且必須包含英數字、特殊字元[!@#$%^&*])</label>
+                    <label class="info"><br />(1.不可空白 2.至少6個字且必須包含英數字、特殊字元[!@#$%^&*])</label>
                 </div>
                 <div>
                     <label class="title">
-                        日期：<input id="input-date" type="text" name="date" placeholder="yyyy/mm/dd"/>
+                        日期：<input id="input-date" type="text" name="date" />
                     </label>
-                    <span id="span-date"></span>
                     <label class="info"><br />格式：西元年/月/日(yyyy/mm/dd)</label>
                 </div>
 
@@ -57,13 +42,10 @@
 
     </div>
     <!--===================3========================-->
-    <h1 id="bookMark3">3、評分系統</h1>
     <div id="campus3"></div>
     <!--===================4========================-->
-    <h1 id="bookMark4">4、廣告輪播</h1>
     <div id="campus4"></div>
     <!--===================5========================-->
-    <h1 id="bookMark5">5、2010~2025年日曆</h1>
     <div id="campus5"></div>
 
 </body>
