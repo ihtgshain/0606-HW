@@ -175,7 +175,92 @@ function changeRankHistory(i) {
 }
 //==========================4================================
 let divM = document.getElementById("divMainImg");
-divM.innerHTML =`<img src="images/cm01.jpg" />`;
+let divS = document.getElementById("divSubImg");
+let arrayUrl = ["https://twitter.com/fromsoftware_pr","https://twitter.com/Pesoguin1?lang=ja", "https://twitter.com/Zanmyo?lang=ja", "https://twitter.com/pesoguin", "https://mobile.twitter.com/95rn16"];
+let len = arrayUrl.length;
+let frameIndex = 2;
+let dx = 0;
+let isStop = false;
+for (let i = 0; i < len; i++) {
+    if (i < 3)
+        divM.innerHTML += `<a id="url${i}" href="${arrayUrl[i + 1]}" target="_blank"><img id="imgM${i}" class="imgM" src="images/cm0${i + 1}.jpg" /></a>`;
+    divS.innerHTML += `<img id="imgS${i}" class="imgS" src="images/cm0${i}.jpg" onmouseover="mouseOverImg(${i})"/>`;
+}
+
+function mouseOverImg(i) {
+    for (let j = 0; j < 3; j++) {
+        let index = i + j +dx - 1;
+        if (index >= len) index -= len;
+        else if (index < 0) index += len;
+        document.getElementById("imgM" + j).src = "images/cm0" + index + ".jpg";
+        document.getElementById("url" + j).href = arrayUrl[index];
+        changeFrame(i);
+    }
+}
+mouseOverImg(frameIndex);
+
+function changeFrame(index) {
+    for (let i = 0; i < len; i++) {
+        document.getElementById("imgS" + i).className = "imgS";
+        if (i==index) {
+            document.getElementById("imgS" + i).classList.add("imgFrame");
+        }
+    }
+    frameIndex = index;
+}
+
+function interval() {
+    imgTimer = setInterval(moveImg, 2213,true)
+}
+interval();
+
+function moveImg(direction) {
+    setDx(direction);
+    for (let i = 0; i < len; i++) {
+        let index = i + dx;
+        if (index >= len) index -= len;
+        document.getElementById("imgS" + i).src = "images/cm0" + index + ".jpg";
+    }
+    mouseOverImg(frameIndex);
+}
+
+function setDx(direction) {
+    if (direction) dx = dx == 4 ? 0 : dx + 1;
+    else dx = dx == 0 ? 4 : dx - 1 ;
+}
+
+document.getElementById("nextImg").onclick = () => {
+    moveImg(true);
+    if (isStop) return;
+    clearInterval(imgTimer);
+    interval();
+}
+
+document.getElementById("preImg").onclick = () => {
+    moveImg(false);
+    if (isStop) return;
+    clearInterval(imgTimer);
+    interval();
+}
+document.getElementById("resetFrame").onclick = () => {
+    frameIndex = parseInt(len / 2);
+    mouseOverImg(frameIndex);
+}
+
+document.getElementById("stopMove").onclick = function(){
+    if (isStop) {
+        interval();
+        this.textContent ="暫停輪播"
+        
+    } else {
+        clearInterval(imgTimer);
+        this.textContent = "繼續輪播"
+    }
+    isStop = !isStop;
+}
+
+
+
 
 
 
