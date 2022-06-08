@@ -147,12 +147,10 @@ function changeToRanked(i) {
         let item = document.getElementById("s" + j)
         if (j <= i) {
             item.src = "images/dalala.gif"
-            item.classList = "";
-            item.classList.add("ranked");
+            item.className="ranked";
         } else {
             item.src = "images/bulala.gif"
-            item.classList = "";
-            item.classList.add("unranked");
+            item.className = "unranked";            
         }
     }
 }
@@ -175,7 +173,9 @@ function changeRankHistory(i) {
     var f = Math.round(RankTotal*10 / RankCount) / 10;
     ps3.textContent = `平均星數： ${f} 星。`
 }
-
+//==========================4================================
+let divM = document.getElementById("divMainImg");
+divM.innerHTML =`<img src="images/cm01.jpg" />`;
 
 
 
