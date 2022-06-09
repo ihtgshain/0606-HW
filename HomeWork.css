@@ -166,6 +166,8 @@ legend {
 #campus4 ul{
     margin-top:20px;
     color:deeppink;
+    list-style-image:url("images/dusula.gif");
+    list-style-position:inside;
 }
 
 #divMainImg {
@@ -240,12 +242,12 @@ legend {
 
 #resetFrame {
     left: 880px;
-    top: -9px;
+    top: -5px;
 }
 
 #stopMove {
     left: 880px;
-    top: 35px;
+    top: 40px;
 }
 
 
@@ -253,3 +255,103 @@ legend {
     margin-left: 5%;
 }
 /*===================================================================*/
+#campus5 {
+    width: 800px;
+    height: 460px;
+    padding: 20px 30px 20px 30px;
+    margin-left: 30%;
+    margin-bottom: 50%;
+    border: 2px solid black;
+    border-radius:40px;
+}
+
+#campus5 h2{
+    background-color:#666;
+    color:white;
+    border-radius:12px;
+    padding:8px;
+    margin-bottom:12px;
+    width:fit-content;
+}
+
+#calAndInfo {
+    display: flex;
+    justify-content:normal;
+}
+
+#week{
+    margin-top:20px;
+    display:flex;
+    justify-content:start;
+    font-size:18px;
+}
+
+#week div{
+    background-color:dimgray;
+    width:48px;
+    text-align:center;
+    color:white;
+    margin:1px;
+}
+
+#weekdate {
+    width: 350px;
+    height: 210px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#weekdate div{
+    width:50px;
+    height:35px;
+    text-align:center;
+    padding:3px;
+    font-size:22px;
+    border:1px solid white;
+    cursor:pointer;
+}
+
+#divSelect {
+    width: 450px;
+}
+
+#divSelect select {
+    width: 80px;
+}
+
+#divInfo h3{
+    padding:5px 0 5px 5px;
+    background-color:dimgrey;
+    color:white;
+    margin-bottom:5px;
+}
+
+#divMessage {
+    width: 350px;
+    height:244px;
+    border: 2px solid black;
+}
+
+#divCopyRight {
+    width: 738px;
+    height: 40px;
+    padding:10px;
+    margin-top:15px;
+    background-color: dimgrey;
+    border-radius:4px;
+}
+
+#divCopyRight h4{
+    color:white;
+    text-align:center;
+}
+
+.curM{
+    color:white;
+    background-color:#444;
+}
+
+.lastM, .nextM {
+    color: #444;
+    background-color: #ddd;
+}

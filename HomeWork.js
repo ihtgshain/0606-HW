@@ -284,6 +284,76 @@ function stopOrRun(sOR) {
         document.getElementById("bookMark4").innerText = "4、廣告輪播(暫停中)"
     }
 }
+//=====================5====================================
+let today = new Date();
+let selY = today.getFullYear();
+let selM = today.getMonth();  //0~11
+let selD = today.getDate();
+let lDays;
+let cDays;
+let nDays;
+let startD;
+let endD;
+let dayCount=0;
+let divWD = document.querySelector("#weekdate");
+
+for (let i = 2010; i <= 2025; i++) {
+    document.querySelector("#selYear").innerHTML += i == selY ? `<option selected>${i}</option>` : `<option>${i}</option>`;
+}
+
+for (let i = 1; i <= 12; i++) {
+    document.querySelector("#selMonth").innerHTML += i == selM+1 ? `<option selected>${i}</option>` : `<option>${i}</option>`;
+}
+
+function howManyDays() {
+    lDays = new Date(selY, selM, 0).getDate();
+    cDays = new Date(selY, selM + 1, 0).getDate();  //last month's last date
+    nDays = new Date(selY, selM + 2, 0).getDate();
+}
+howManyDays();
+
+function sleOptDate() {
+    for (let i = 1; i <= cDays; i++) {
+        document.querySelector("#selDate").innerHTML += i == selD ? `<option selected>${i}</option>` : `<option>${i}</option>`;
+    }
+}
+sleOptDate();
+
+function whichDayStar() {
+    startD = new Date(selY, selM, 1).getDay();
+    endD = new Date(selY, selM, cDays).getDay();
+}
+whichDayStar();
+
+function generateLastDate() {
+    for (let i = lDays - startD + 1; i <= lDays; i++) {
+        divWD.innerHTML += `<div class="lastM" id="l${i}">${i}</div>`;
+        dayCount++;
+    }
+}
+generateLastDate();
+
+function generateCurDate() {
+    for (let i = 1; i <= cDays; i++) {
+        divWD.innerHTML += `<div class="curM" id="c${i}">${i}</div>`;
+        dayCount++;
+    }
+    
+}
+generateCurDate();
+
+function generateNextDate() {
+    let complement = dayCount <= 35 ? 13 : 6;
+    
+    for (let i = 1; i <= complement-endD; i++) {
+        divWD.innerHTML += `<div class="nextM" id="n${i}">${i}</div>`;
+    }
+}
+generateNextDate();
+
+
+
+
 
 
 

@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>HomeWork</title>
+    <title>JavaScript作業 07_張正昱</title>
     <link rel="stylesheet" href="HomeWork.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <script src="HomeWork.js" defer></script>
@@ -31,7 +31,7 @@
                 <legend>Form Check</legend>
                 <div>
                     <label class="title">
-                        姓名：<input id="input-name" type="text" name="name" placeholder="您的姓名" required/>
+                        姓名：<input id="input-name" type="text" name="name" placeholder="您的姓名" required />
                     </label>
                     <span id="span-name"></span>
                     <label class="info"><br />(1.不可空白  2.至少兩個字以上  3.必須全部為中文字)</label>
@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     <label class="title">
-                        日期：<input id="input-date" type="text" name="date" placeholder="yyyy/mm/dd"/>
+                        日期：<input id="input-date" type="text" name="date" placeholder="yyyy/mm/dd" />
                     </label>
                     <span id="span-date"></span>
                     <label class="info"><br />格式：西元年/月/日(yyyy/mm/dd)</label>
@@ -91,7 +91,34 @@
 
     <!--===================5========================-->
     <h1 id="bookMark5">5、2010~2025年日曆</h1>
-    <div id="campus5"></div>
-
+    <div id="campus5">
+        <h2>月曆</h2>
+        <h4>Welcome</h4>
+        <div id="calAndInfo">
+            <div id="divSelect">
+                <select id="selYear"></select><span>年</span>
+                <select id="selMonth"></select><span>月</span>
+                <select id="selDate"></select><span>日</span>
+                <div id="week">
+                    <div>Sun.</div>
+                    <div>Mon.</div>
+                    <div>Tue.</div>
+                    <div>Wed.</div>
+                    <div>Thu.</div>
+                    <div>Fri.</div>
+                    <div>Sat.</div>
+                </div>
+                <div id="weekdate">
+                </div>
+            </div>
+            <div id="divInfo">
+                <h3>Information</h3>
+                <div id="divMessage"></div>
+            </div>
+        </div>
+        <div id="divCopyRight">
+        <h4>&copy;2022 MSIT141 07_張正昱 All Rights Reserved.</h4>
+        </div>
+    </div>
 </body>
 </html>
