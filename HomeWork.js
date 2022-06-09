@@ -181,19 +181,26 @@ let len = arrayUrl.length;
 let frameIndex = 2;
 let dx = 0;
 let isStop = false;
+let moveDirection = [false,false,true];
 for (let i = 0; i < len; i++) {
-    if (i < 3)
-        divM.innerHTML += `<a id="url${i}" href="${arrayUrl[i + 1]}" target="_blank"><img id="imgM${i}" class="imgM" src="images/cm0${i + 1}.jpg" /></a>`;
+    if (i == 1)
+        divM.innerHTML += `<a id="url${i}" href="${arrayUrl[i + 1]}" target="_blank"><img id="imgM${i}" class="imgM" src="images/cm0${i + 1}.jpg"/></a>`;
+    else if (i < 3) {
+        divM.innerHTML += `<img id="imgM${i}" class="imgM" src="images/cm0${i + 1}.jpg" onclick="moveImg(${moveDirection[i]})" />`;
+    }
     divS.innerHTML += `<img id="imgS${i}" class="imgS" src="images/cm0${i}.jpg" onmouseover="mouseOverImg(${i})"/>`;
 }
 
 function mouseOverImg(i) {
     for (let j = 0; j < 3; j++) {
         let index = i + j +dx - 1;
+
         if (index >= len) index -= len;
         else if (index < 0) index += len;
+
         document.getElementById("imgM" + j).src = "images/cm0" + index + ".jpg";
-        document.getElementById("url" + j).href = arrayUrl[index];
+
+        if (j == 1)     document.getElementById("url" + j).href = arrayUrl[index];
         changeFrame(i);
     }
 }
@@ -210,7 +217,7 @@ function changeFrame(index) {
 }
 
 function interval() {
-    imgTimer = setInterval(moveImg, 2213,true)
+    imgTimer = setInterval(moveImg, 2500,true)
 }
 interval();
 
@@ -229,19 +236,18 @@ function setDx(direction) {
     else dx = dx == 0 ? 4 : dx - 1 ;
 }
 
-document.getElementById("nextImg").onclick = () => {
-    moveImg(true);
+document.getElementById("nextImg").onclick = () => forBtnMove(true);
+
+document.getElementById("preImg").onclick = () => forBtnMove(false);
+
+function forBtnMove(RL) {
+    moveImg(RL);
     if (isStop) return;
     clearInterval(imgTimer);
     interval();
 }
 
-document.getElementById("preImg").onclick = () => {
-    moveImg(false);
-    if (isStop) return;
-    clearInterval(imgTimer);
-    interval();
-}
+
 document.getElementById("resetFrame").onclick = () => {
     frameIndex = parseInt(len / 2);
     mouseOverImg(frameIndex);
@@ -249,14 +255,34 @@ document.getElementById("resetFrame").onclick = () => {
 
 document.getElementById("stopMove").onclick = function(){
     if (isStop) {
-        interval();
-        this.textContent ="暫停輪播"
-        
+        stopOrRun(isStop);
+        this.textContent = "暫停輪播"
     } else {
-        clearInterval(imgTimer);
+        stopOrRun(isStop);
         this.textContent = "繼續輪播"
     }
     isStop = !isStop;
+}
+
+document.getElementById("divMainImg").onmouseout = () => {
+    if (isStop) return;
+    stopOrRun(true);
+}
+
+document.getElementById("divMainImg").onmouseover = () => {
+    if (isStop) return;
+    stopOrRun(false);
+}
+
+function stopOrRun(sOR) {
+    if (sOR) {
+        interval();
+        document.getElementById("bookMark4").innerText = "4、廣告輪播"
+    }
+    else {
+        clearInterval(imgTimer);
+        document.getElementById("bookMark4").innerText = "4、廣告輪播(暫停中)"
+    }
 }
 
 
