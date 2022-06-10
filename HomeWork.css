@@ -271,7 +271,7 @@ legend {
     border-radius:12px;
     padding:8px;
     margin-bottom:12px;
-    width:fit-content;
+    /*width:fit-content;*/
 }
 
 #calAndInfo {
@@ -290,7 +290,6 @@ legend {
     background-color:dimgray;
     width:48px;
     text-align:center;
-    color:white;
     margin:1px;
 }
 
@@ -309,6 +308,13 @@ legend {
     font-size:22px;
     border:1px solid white;
     cursor:pointer;
+}
+.holiday{
+    color:deeppink;
+}
+
+.weekday{
+    color:white;
 }
 
 #divSelect {
@@ -350,8 +356,21 @@ legend {
     color:white;
     background-color:#444;
 }
+.curMH {
+    color: deeppink;
+    background-color: #444;
+}
 
 .lastM, .nextM {
     color: #444;
     background-color: #ddd;
+}
+
+.lastMH, .nextMH {
+    color: hotpink;
+    background-color: #ddd;
+}
+.selectedDate{
+    border-radius:5px;
+    border:2px solid blue;
 }

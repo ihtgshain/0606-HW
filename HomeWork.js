@@ -312,12 +312,17 @@ function howManyDays() {
 }
 howManyDays();
 
-function sleOptDate() {
+function sleOptDate() {    
+    if (selD > cDays) selD = cDays;
+    console.log(selD);
+    console.log(cDays);
+    document.querySelector("#selDate").innerHTML = "";
     for (let i = 1; i <= cDays; i++) {
         document.querySelector("#selDate").innerHTML += i == selD ? `<option selected>${i}</option>` : `<option>${i}</option>`;
     }
+    
 }
-sleOptDate();
+sleOptDate(selD);
 
 function whichDayStar() {
     startD = new Date(selY, selM, 1).getDay();
@@ -327,7 +332,7 @@ whichDayStar();
 
 function generateLastDate() {
     for (let i = lDays - startD + 1; i <= lDays; i++) {
-        divWD.innerHTML += `<div class="lastM" id="l${i}">${i}</div>`;
+        divWD.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="lastMH" id="l${i}">${i}</div>`:`<div class="lastM" id="l${i}">${i}</div>`;
         dayCount++;
     }
 }
@@ -335,10 +340,10 @@ generateLastDate();
 
 function generateCurDate() {
     for (let i = 1; i <= cDays; i++) {
-        divWD.innerHTML += `<div class="curM" id="c${i}">${i}</div>`;
+        divWD.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="curMH" id="c${i}">${i}</div>` : `<div class="curM" id="c${i}">${i}</div>`;
         dayCount++;
     }
-    
+
 }
 generateCurDate();
 
@@ -346,11 +351,36 @@ function generateNextDate() {
     let complement = dayCount <= 35 ? 13 : 6;
     
     for (let i = 1; i <= complement-endD; i++) {
-        divWD.innerHTML += `<div class="nextM" id="n${i}">${i}</div>`;
+        divWD.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="nextMH" id="n${i}">${i}</div>` : `<div class="nextM" id="n${i}">${i}</div>`;
+        dayCount++;
     }
+    dayCount = 0;
 }
 generateNextDate();
 
+document.querySelector("#selYear").addEventListener("change", () => selectChange());
+document.querySelector("#selMonth").addEventListener("change", () => selectChange());
+
+function selectChange() {
+    selY = document.querySelector("#selYear").value;
+    selM = document.querySelector("#selMonth").value-1;
+    console.log(selY);
+    console.log(selM);
+    divWD.innerHTML = "";
+    howManyDays();
+    sleOptDate(selD);
+    whichDayStar();
+    generateLastDate();
+    generateCurDate();
+    generateNextDate();
+}
+document.querySelector("#selDate").addEventListener("change", () => {
+    selD = document.querySelector("#selDate").value;
+    sleOptDate(selD);
+    console.log(selD);
+    document.getElementById("c" + selD).classList.add("selectedDate");
+    console.log(document.getElementById("c" + selD));
+});
 
 
 
