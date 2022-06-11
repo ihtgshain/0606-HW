@@ -109,7 +109,6 @@ function generateStars() {
     for (let i = 1; i < 6; i++) {
         divStars.innerHTML += `<img id="s${i}" class="normal" src="images/wzs.gif" alt="lala" title="${i}星評價" 
         onclick="oneClick(${i})" ondblclick="twoClick()" onmouseover="mouseOver(${i})" onmouseout="mouseOut()"/>`
-
     }
 }
 generateStars();
@@ -181,7 +180,7 @@ let len = arrayUrl.length;
 let frameIndex = 2;
 let dx = 0;
 let isStop = false;
-let moveDirection = [false,false,true];
+let moveDirection = [false, false, true];
 for (let i = 0; i < len; i++) {
     if (i == 1)
         divM.innerHTML += `<a id="url${i}" href="${arrayUrl[i + 1]}" target="_blank"><img id="imgM${i}" class="imgM" src="images/cm0${i + 1}.jpg"/></a>`;
@@ -191,7 +190,21 @@ for (let i = 0; i < len; i++) {
     divS.innerHTML += `<img id="imgS${i}" class="imgS" src="images/cm0${i}.jpg" onmouseover="mouseOverImg(${i})"/>`;
 }
 
+function movingAnime(i, direction) {
+    setTimeout(resetClass, 300, i);
+    let pics = document.querySelectorAll(".imgM");
+    if (direction) pics.forEach(x => x.classList.add("moveAnimeN"))
+    else pics.forEach(x => x.classList.add("moveAnimeP"))
+}
+
+function resetClass(i) {
+    let pics = document.querySelectorAll(".imgM");
+    pics.forEach(x => x.className = "imgM");
+    mouseOverImg(i)
+}
+
 function mouseOverImg(i) {
+    isChanged = true;
     for (let j = 0; j < 3; j++) {
         let index = i + j +dx - 1;
 
@@ -217,7 +230,7 @@ function changeFrame(index) {
 }
 
 function interval() {
-    imgTimer = setInterval(moveImg, 2500,true)
+    imgTimer = setInterval(moveImg, 2800,true)
 }
 interval();
 
@@ -228,7 +241,7 @@ function moveImg(direction) {
         if (index >= len) index -= len;
         document.getElementById("imgS" + i).src = "images/cm0" + index + ".jpg";
     }
-    mouseOverImg(frameIndex);
+    movingAnime(frameIndex,direction);
 }
 
 function setDx(direction) {
@@ -237,7 +250,6 @@ function setDx(direction) {
 }
 
 document.getElementById("nextImg").onclick = () => forBtnMove(true);
-
 document.getElementById("preImg").onclick = () => forBtnMove(false);
 
 function forBtnMove(RL) {
@@ -246,7 +258,6 @@ function forBtnMove(RL) {
     clearInterval(imgTimer);
     interval();
 }
-
 
 document.getElementById("resetFrame").onclick = () => {
     frameIndex = parseInt(len / 2);
@@ -294,35 +305,46 @@ let cDays;
 let nDays;
 let startD;
 let endD;
+const startY = 2010;
+const endY = 2025;
 let dayCount=0;
 let divWD = document.querySelector("#weekdate");
 
-for (let i = 2010; i <= 2025; i++) {
-    document.querySelector("#selYear").innerHTML += i == selY ? `<option selected>${i}</option>` : `<option>${i}</option>`;
-}
 
-for (let i = 1; i <= 12; i++) {
-    document.querySelector("#selMonth").innerHTML += i == selM+1 ? `<option selected>${i}</option>` : `<option>${i}</option>`;
+let docFrag = document.createDocumentFragment(); //Using fragment,an independent node, can improve efficiency
+docFrag.innerHTML = "";
+for (let i = startY; i <= endY; i++) {
+    docFrag.innerHTML += i == selY ? `<option selected="true" >${i}</option>` : `<option>${i}</option>`;
 }
+document.querySelector("#selYear").innerHTML += docFrag.innerHTML;
+
+docFrag.innerHTML = "";
+for (let i = 1; i <= 12; i++) {
+    docFrag.innerHTML += i == selM + 1 ? `<option selected="true" >${i}</option>` : `<option>${i}</option>`;
+}
+document.querySelector("#selMonth").innerHTML += docFrag.innerHTML;
 
 function howManyDays() {
+    selY = document.querySelector("#selYear").value;
+    selM = document.querySelector("#selMonth").value - 1;
     lDays = new Date(selY, selM, 0).getDate();
-    cDays = new Date(selY, selM + 1, 0).getDate();  //last month's last date
+    cDays = new Date(selY, selM + 1, 0).getDate();  
     nDays = new Date(selY, selM + 2, 0).getDate();
+    sleOptDate(selD);
 }
 howManyDays();
 
 function sleOptDate() {    
     if (selD > cDays) selD = cDays;
-    console.log(selD);
-    console.log(cDays);
     document.querySelector("#selDate").innerHTML = "";
+    let localFrag = document.createDocumentFragment();  //the search priority of local variable is higher then global one
+    localFrag.innerHTML = "";
     for (let i = 1; i <= cDays; i++) {
-        document.querySelector("#selDate").innerHTML += i == selD ? `<option selected>${i}</option>` : `<option>${i}</option>`;
+        localFrag.innerHTML += i == selD ? `<option selected="true" >${i}</option>` : `<option>${i}</option>`;
     }
+    document.querySelector("#selDate").innerHTML += localFrag.innerHTML;
     
 }
-sleOptDate(selD);
 
 function whichDayStar() {
     startD = new Date(selY, selM, 1).getDay();
@@ -331,29 +353,36 @@ function whichDayStar() {
 whichDayStar();
 
 function generateLastDate() {
+    let localFrag = document.createDocumentFragment();
+    localFrag.innerHTML = "";
     for (let i = lDays - startD + 1; i <= lDays; i++) {
-        divWD.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="lastMH" id="l${i}">${i}</div>`:`<div class="lastM" id="l${i}">${i}</div>`;
+        localFrag.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="lastMH" id="l${i}" onclick="changeCal(true)">${i}</div>` : `<div class="lastM" id="l${i}" onclick="changeCal(true)">${i}</div>`;
         dayCount++;
     }
+    divWD.innerHTML += localFrag.innerHTML;
 }
 generateLastDate();
 
 function generateCurDate() {
+    let localFrag = document.createDocumentFragment();
+    localFrag.innerHTML = "";
     for (let i = 1; i <= cDays; i++) {
-        divWD.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="curMH" id="c${i}">${i}</div>` : `<div class="curM" id="c${i}">${i}</div>`;
+        localFrag.innerHTML+= (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="curMH" id="c${i}" onclick="markDate1()" >${i}</div>` : `<div class="curM" id="c${i}" onclick="markDate1()">${i}</div>`;
         dayCount++;
     }
-
+    divWD.innerHTML += localFrag.innerHTML;
 }
 generateCurDate();
 
 function generateNextDate() {
+    let localFrag = document.createDocumentFragment();
+    localFrag.innerHTML = "";
     let complement = dayCount <= 35 ? 13 : 6;
-    
     for (let i = 1; i <= complement-endD; i++) {
-        divWD.innerHTML += (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="nextMH" id="n${i}">${i}</div>` : `<div class="nextM" id="n${i}">${i}</div>`;
+        localFrag.innerHTML+= (dayCount % 7 == 0 || dayCount % 7 == 6) ? `<div class="nextMH" id="n${i}" onclick="changeCal(false)" >${i}</div>` : `<div class="nextM" id="n${i}" onclick="changeCal(false)">${i}</div>`;
         dayCount++;
     }
+    divWD.innerHTML += localFrag.innerHTML;
     dayCount = 0;
 }
 generateNextDate();
@@ -363,9 +392,13 @@ document.querySelector("#selMonth").addEventListener("change", () => selectChang
 
 function selectChange() {
     selY = document.querySelector("#selYear").value;
-    selM = document.querySelector("#selMonth").value-1;
-    console.log(selY);
-    console.log(selM);
+    selM = document.querySelector("#selMonth").value - 1;
+    let selOptY = document.querySelector("#selYear");
+    for (let op of selOptY) op.removeAttribute("selected");
+    document.querySelector("#selYear").options[selY - startY].setAttribute("selected", "true");
+    let selOptM = document.querySelector("#selMonth");
+    for (let op of selOptM) op.removeAttribute("selected");
+    document.querySelector("#selMonth").options[selM].setAttribute("selected", "true");
     divWD.innerHTML = "";
     howManyDays();
     sleOptDate(selD);
@@ -373,15 +406,70 @@ function selectChange() {
     generateLastDate();
     generateCurDate();
     generateNextDate();
+    markDate2();
 }
-document.querySelector("#selDate").addEventListener("change", () => {
+document.querySelector("#selDate").addEventListener("change", () => markDate2());
+
+function markDate1() {
+    var selected = document.getElementsByTagName("select")[2].value;
+    document.querySelector("#selDate").options[selected - 1].removeAttribute("selected");
+    document.querySelector("#selDate").options[event.target.id.substr(1) - 1].setAttribute("selected", "true");
+    markDate2();
+}
+
+function markDate2() {
+    let temp = document.querySelector(".selectedDate");
+    if (temp) temp.classList.remove("selectedDate");
     selD = document.querySelector("#selDate").value;
     sleOptDate(selD);
-    console.log(selD);
-    document.getElementById("c" + selD).classList.add("selectedDate");
-    console.log(document.getElementById("c" + selD));
-});
+    document.getElementById("c"+selD).classList.add("selectedDate");
+    addInfo();
+};
+markDate2();
 
+docFrag.innerHTML = `<h4>今天的日期是：${selY}年 ${selM + 1}月 ${selD}日。</h4>`;  
+function addInfo() {
+    document.querySelector("#divMessage").innerHTML = docFrag.innerHTML+`<h4>您選擇的日期是：${selY}年 ${selM+1}月 ${selD}日。</h4>`;
+}
+document.querySelector("#divMessage").innerHTML = docFrag.innerHTML;
+
+function overRange() {
+    document.querySelector("#divMessage").innerHTML = docFrag.innerHTML + `<h4>您選擇的日期超出範圍(${startY}~${endY})。</h4>`;
+}
+
+function changeCal(isLastM) {
+    if (isLastM) {
+        if (selM == 0) {
+            if (selY == startY) {
+                overRange();
+                return;
+            }
+            document.querySelector("#selYear").options[selY - startY].removeAttribute("selected");
+            document.querySelector("#selYear").options[selY - startY - 1].setAttribute("selected", "true");
+            document.querySelector("#selMonth").options[0].removeAttribute("selected");
+            document.querySelector("#selMonth").options[11].setAttribute("selected", "true");
+        } else {
+            document.querySelector("#selMonth").options[selM].removeAttribute("selected");
+            document.querySelector("#selMonth").options[selM - 1].setAttribute("selected", "true");
+        }
+    } else {
+        if (selM == 11) {
+            if (selY == endY) {
+                overRange();
+                return;
+            }
+            document.querySelector("#selYear").options[selY - startY].removeAttribute("selected");
+            document.querySelector("#selYear").options[selY - startY + 1].setAttribute("selected", "true");
+            document.querySelector("#selMonth").options[11].removeAttribute("selected");
+            document.querySelector("#selMonth").options[0].setAttribute("selected", "true");
+        } else {
+            document.querySelector("#selMonth").options[selM].removeAttribute("selected");
+            document.querySelector("#selMonth").options[selM + 1].setAttribute("selected", "true");
+        }
+    }
+    selectChange();
+    markDate1();
+}
 
 
 
